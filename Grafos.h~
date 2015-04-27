@@ -1,0 +1,75 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include "Funcoes.h"
+#include "Filtros.h"
+#define infinito 2748864			//maior valor do int, a energia nunca alcançará esse número
+
+#ifndef GRAFOS_H
+#define GRAFOS_H
+
+typedef struct Celula *Ponteiro;
+typedef struct Celula{
+	int vertice;
+	int x,y;
+	float peso;
+	Ponteiro prox;
+}Celula;
+typedef struct TipoLista{
+	Ponteiro inicio;
+	Ponteiro fim;
+}TipoLista;
+typedef struct TipoLista *PonteiroLista;
+typedef struct TipoGrafo{
+	PonteiroLista InicioLista;
+	int numvertices;
+}TipoGrafo;
+
+typedef struct CelulaHeap *TipoHeap;
+typedef struct CelulaHeap{
+	int vertice;
+	float peso;
+}CelulaHeap;
+
+
+//------------------------------------------------------------------------------
+
+void CriaGrafo(TipoGrafo *grafo, Imagem imagem);
+
+//------------------------------------------------------------------------------
+
+void ImprimeGrafo(TipoGrafo grafo);
+
+//------------------------------------------------------------------------------
+
+void LiberaGrafo(TipoGrafo *grafo);
+
+//------------------------------------------------------------------------------
+
+void ProxAdj(int vertice, TipoGrafo grafo, int *adj, float *peso, Ponteiro *prox, int *FimListaAdj); 
+
+//------------------------------------------------------------------------------
+
+CelulaHeap retirarmenor(TipoHeap heap,int *n,int *pos);
+
+//------------------------------------------------------------------------------
+
+void DiminuiChave(TipoHeap heap,int i, int novopeso, int *pos);
+
+//------------------------------------------------------------------------------
+
+void refazer(TipoHeap heap, int esq,int dir,int *pos);
+
+//------------------------------------------------------------------------------
+
+void construir(TipoHeap heap, int dir, int *pos);
+
+//------------------------------------------------------------------------------
+
+void Dijkstra(TipoGrafo *grafo,TipoHeap heap,int *pos);
+
+//------------------------------------------------------------------------------
+
+void SolucaoGrafos(Imagem *imagem,int qtd);
+
+//------------------------------------------------------------------------------
+#endif
